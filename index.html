@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone Delivery</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #000;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .phone-screen {
+            width: 390px; /* Типичная ширина экрана iPhone */
+            height: 844px; /* Типичная высота экрана iPhone */
+            background-color: #1c1c1e; /* Темный фон */
+            border-radius: 40px;
+            box-shadow: 0 0 0 10px #333, 0 0 0 15px #222;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Имитация "челки" */
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 30px;
+            background-color: #000;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 25px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .status-bar span:first-child {
+            font-size: 16px;
+        }
+        
+        .status-bar span:last-child {
+            font-size: 14px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .header strong {
+            color: #fff;
+            margin-left: 5px;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #0e0e1a; /* Глубокий фиолетовый/синий фон */
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 50px;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .input-group {
+            width: 90%;
+            margin-bottom: 25px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 18px 20px;
+            background-color: #4b2a8d; /* Темный фиолетовый для полей */
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .input-field::placeholder {
+            color: #d1d1d6; /* Светлый плейсхолдер */
+            opacity: 1;
+        }
+
+        .submit-button {
+            width: 90%;
+            padding: 20px;
+            background-color: #007aff; /* Синяя кнопка (как в iOS) */
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 50px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .submit-button:hover {
+            background-color: #005bb5;
+        }
+        
+        /* Стили для экрана подтверждения */
+        .confirmation-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0e0e1a;
+            color: #fff;
+            display: none; /* Сначала скрыт */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 20;
+        }
+
+        .confirmation-screen h1 {
+            font-size: 36px;
+            color: #34c759; /* Зеленый цвет успеха */
+            margin-bottom: 20px;
+        }
+
+        .confirmation-screen p {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        
+        /* Имитация клавиатуры (для вида) */
+        .keyboard {
+            width: 100%;
+            height: 300px;
+            background-color: #2b2b2b;
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #999;
+            font-size: 16px;
+            z-index: 5;
+            padding-bottom: 34px; /* Home indicator space */
+        }
+        
+        .home-indicator {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 134px;
+            height: 5px;
+            background-color: #444;
+            border-radius: 10px;
+            z-index: 15;
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-screen">
+    <div class="notch"></div>
+    <div class="status-bar">
+        <span>16:16</span>
+        <span>&middot; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+        <span><span style="font-size: 18px;"></span> <span style="font-size: 10px;">iPhone Delivery</span></span>
+    </div>
+    
+    <div class="content" id="form-screen">
+        <h2>Phone Package Acquisition</h2>
+        
+        <div class="input-group">
+            <input type="text" id="name" class="input-field" placeholder="Valerc (Ваше Имя)">
+        </div>
+        
+        <div class="input-group">
+            <input type="text" id="age" class="input-field" placeholder="Your Age (Ваш Возраст)">
+        </div>
+        
+        <div class="input-group">
+            <input type="text" id="address" class="input-field" placeholder="Delivery Address (Адрес Доставки)">
+        </div>
+        
+        <button class="submit-button" onclick="handleSubmit()">Submit</button>
+    </div>
+
+    <div class="confirmation-screen" id="confirmation-screen">
+        <h1>Delivery Confirmed!</h1>
+        <p>You have successfully acquired your **iPhone 17**!</p>
+        <p style="font-size: 16px; font-weight: 400; margin-top: 30px; color: #aaa;">(This is a simulation. Enjoy your new phone!)</p>
+    </div>
+    
+    <div class="keyboard">
+        (Имитация клавиатуры: Валѐр, Done, Valentin)
+    </div>
+    
+    <div class="home-indicator"></div>
+
+</div>
+
+<script>
+    function handleSubmit() {
+        const formScreen = document.getElementById('form-screen');
+        const confirmationScreen = document.getElementById('confirmation-screen');
+        const name = document.getElementById('name').value;
+        const age = document.getElementById('age').value;
+        const address = document.getElementById('address').value;
+
+        // Здесь можно добавить проверку, что поля не пустые, но для симуляции просто переключаем экран.
+        
+        // Скрываем форму
+        formScreen.style.display = 'none';
+        
+        // Показываем экран подтверждения
+        confirmationScreen.style.display = 'flex';
+        
+        // Добавляем имя, если оно было введено
+        if (name) {
+             const successText = confirmationScreen.querySelector('p:first-of-type');
+             successText.innerHTML = `**${name}**, you have successfully acquired your **iPhone 17**!`;
+        }
+        
+        // Удаляем клавиатуру для чистоты экрана подтверждения
+        const keyboard = document.querySelector('.keyboard');
+        if (keyboard) keyboard.style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
